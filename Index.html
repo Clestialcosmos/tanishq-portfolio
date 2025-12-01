@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tanishq Tomar | AI & ML Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --accent: #f97373;
+      --accent-soft: rgba(248, 113, 113, 0.18);
+      --accent-strong: #ef4444;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --card: rgba(15, 23, 42, 0.9);
+      --border: rgba(148, 163, 184, 0.4);
+      --radius-xl: 1.8rem;
+      --radius-lg: 1.2rem;
+      --shadow-soft: 0 22px 55px rgba(15, 23, 42, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-decoration: none;
+      border: none;
+      outline: none;
+      font-family: "Poppins", sans-serif;
+    }
+
+    html {
+      font-size: 62.5%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #ef4444 0, #020617 45%),
+        radial-gradient(circle at bottom, #020617 0, #000 70%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* ====== Background grid / glow ====== */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(rgba(31, 41, 55, 0.9), rgba(2, 6, 23, 1));
+      pointer-events: none;
+    }
+
+    .bg-grid::before {
+      content: "";
+      position: absolute;
+      inset: -10%;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(51, 65, 85, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(51, 65, 85, 0.3) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(circle at top, black, transparent 65%);
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.8rem 1.8rem 4rem;
+    }
+
+    /* ====== Header / Nav ====== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      margin-bottom: 2rem;
+    }
+
+    .nav {
+      margin-top: 0.6rem;
+      padding: 1.1rem 1.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left,
+                  rgba(15, 23, 42, 0.95),
+                  rgba(15, 23, 42, 0.9));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 16px 36px rgba(15, 23, 42, 0.95);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 16px rgba(248, 113, 113, 0.9);
+    }
+
+    .logo-text {
+      font-size: 1.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18rem;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      font-size: 1.4rem;
+      color: var(--muted);
+      margin-left: 2.6rem;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.5rem;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.22s ease-out;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--accent);
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-cta {
+      font-size: 1.2rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.7);
+      background: radial-gradient(circle at top left,
+                  rgba(248, 113, 113, 0.15),
+                  rgba(15, 23, 42, 1));
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.22s ease-out;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 1);
+      border-color: var(--accent-strong);
+    }
+
+    /* ====== Layout Sections ====== */
+    section {
+      padding: 5rem 0 1rem;
+    }
+
+    /* ====== Hero ====== */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 4.5rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 4.8rem;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text h1 span {
+      color: var(--accent);
+    }
+
+    .typing-text {
+      font-size: 2.8rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
+    .typing-text span {
+      position: relative;
+      color: var(--accent);
+    }
+
+    .typing-text span::before {
+      content: "AI & ML Engineer";
+      animation: roles 16s infinite;
+    }
+
+    .typing-text span::after {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: calc(100% + 6px);
+      right: -6px;
+      top: 0;
+      background: transparent;
+      border-left: 2px solid var(--accent);
+      animation: cursor 0.6s infinite;
+    }
+
+    .hero-text p {
+      font-size: 1.5rem;
+      color: #e5e7eb;
+      max-width: 48rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 2.4rem;
+    }
+
+    .badge {
+      font-size: 1.2rem;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--muted);
+    }
+
+    .buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 2.4rem;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      font-size: 1.4rem;
+      padding: 1rem 2.6rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.22s ease-out;
+      text-transform: uppercase;
+      letter-spacing: 0.15rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #020617;
+      font-weight: 600;
+      box-shadow: 0 14px 35px rgba(127, 29, 29, 0.95);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 45px rgba(127, 29, 29, 1);
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.85);
+      border-color: rgba(148, 163, 184, 0.7);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 1);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1.4rem;
+    }
+
+    .social-icons a {
+      width: 4.2rem;
+      height: 4.2rem;
+      border-radius: 999px;
+      border: 2px solid rgba(248, 113, 113, 0.7);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--accent);
+      transition: all 0.2s ease-out;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .social-icons a:hover {
+      background: var(--accent);
+      color: #020617;
+      transform: translateY(-3px) scale(1.12);
+      box-shadow: 0 0 28px rgba(248, 113, 113, 0.9);
+    }
+
+    /* ====== Hero Image (Red Moon style) ====== */
+    .hero-img-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-img-card {
+      position: relative;
+      width: min(340px, 70vw);
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transform-style: preserve-3d;
+    }
+
+    .hero-img-card::before {
+      content: "";
+      position: absolute;
+      width: 125%;
+      height: 125%;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+                  #ef4444 0%,
+                  #7f1d1d 55%,
+                  transparent 70%);
+      box-shadow:
+        0 0 50px rgba(248, 113, 113, 0.9),
+        0 0 140px rgba(127, 29, 29, 0.8);
+      z-index: 0;
+    }
+
+    .hero-img-card img {
+      position: relative;
+      width: 78%;
+      height: 78%;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      z-index: 1;
+    }
+
+    .hero-img-card:hover img {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow:
+        0 0 50px rgba(248, 113, 113, 1),
+        0 26px 70px rgba(0, 0, 0, 1);
+    }
+
+    /* ====== Lower sections preview (Skills / Projects) ====== */
+    .section-card {
+      margin-top: 4rem;
+      padding: 2rem 2.3rem 2.4rem;
+      border-radius: var(--radius-xl);
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at top left,
+                  rgba(248, 113, 113, 0.18),
+                  transparent 60%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .section-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .pill {
+      font-size: 1.2rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--muted);
+    }
+
+    .projects-list {
+      margin-top: 1.2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 1.4rem;
+    }
+
+    .project-item {
+      padding: 1.2rem 1.4rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at top left,
+                  rgba(248, 113, 113, 0.07),
+                  rgba(15, 23, 42, 0.96));
+      transition: all 0.2s ease-out;
+    }
+
+    .project-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(248, 113, 113, 0.85);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 1);
+    }
+
+    .project-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-item p {
+      font-size: 1.3rem;
+      color: var(--muted);
+    }
+
+    /* ====== Footer / Contact ====== */
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      font-size: 1.2rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer span {
+      color: var(--accent);
+    }
+
+    /* ====== Animations ====== */
+    @keyframes cursor {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes roles {
+      0%, 20% { content: "AI & ML Engineer"; }
+      21%, 40% { content: "Full-Stack Developer"; }
+      41%, 60% { content: "ML Research Enthusiast"; }
+      61%, 80% { content: "UI/UX Learner"; }
+      81%, 100% { content: "Tech Explorer"; }
+    }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+      .hero-text {
+        order: 2;
+        text-align: center;
+      }
+      .hero-text p {
+        margin: 0 auto 2.4rem;
+      }
+      .hero-badges {
+        justify-content: center;
+      }
+      .buttons-row {
+        justify-content: center;
+      }
+      .social-icons {
+        justify-content: center;
+      }
+      .hero-img-wrapper {
+        order: 1;
+      }
+      nav a {
+        margin-left: 1.8rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrapper {
+        padding-inline: 1.4rem;
+      }
+      .nav {
+        padding-inline: 1.4rem;
+        gap: 1rem;
+      }
+      nav a {
+        display: none; /* Simplify nav on very small screens */
+      }
+      .hero-text h1 {
+        font-size: 3.7rem;
+      }
+      .typing-text {
+        font-size: 2.3rem;
+      }
+      .section-card {
+        padding-inline: 1.6rem;
+      }
+      .projects-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <div class="wrapper">
+    <header>
+      <div class="nav">
+        <div class="nav-left">
+          <div class="logo-dot"></div>
+          <div class="logo-text">Tanishq Tomar</div>
+        </div>
+
+        <nav>
+          <a href="#home" class="active">Home</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <a href="mailto:Tanishqtomar07@gmail.com?subject=Collaboration%20Request"
+           class="nav-cta">
+          <span>Let’s collaborate</span> →
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-text">
+        <h1>Hi, I'm <span>Tanishq</span></h1>
+        <h3 class="typing-text">I'm a <span></span></h3>
+        <p>
+          B.Tech CSE (AI &amp; ML) student building projects that blend
+          <strong>machine learning, full-stack development, and cinematic design</strong>.
+          I love turning ideas into intelligent, visually striking experiences.
+        </p>
+
+        <div class="hero-badges">
+          <div class="badge">AI &amp; ML · 1st Year</div>
+          <div class="badge">Web · UI / UX</div>
+          <div class="badge">Open to internships &amp; collabs</div>
+        </div>
+
+        <div class="buttons-row">
+          <a href="mailto:Tanishqtomar07@gmail.com" class="btn-primary">
+            Contact Me
+          </a>
+          <a href="https://github.com/Clestialcosmos" target="_blank" class="btn-ghost">
+            View GitHub
+          </a>
+        </div>
+
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/tanishq-tomar-681aa4390" target="_blank">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/Clestialcosmos" target="_blank">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://www.kaggle.com/cosmosgalaxy" target="_blank">
+            <i class="fa-brands fa-kaggle"></i>
+          </a>
+          <a href="https://www.instagram.com" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-img-wrapper">
+        <div class="hero-img-card">
+          <!-- 🔗 Your working public image link -->
+          <img
+            src="https://raw.githubusercontent.com/Clestialcosmos/jpg/main/main%20(1).jpg"
+            alt="Tanishq anime-style portrait" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS / SERVICES PREVIEW -->
+    <section id="skills">
+      <div class="section-card">
+        <div class="section-title">Skills & Stack</div>
+        <div class="pill-row">
+          <span class="pill">Python · NumPy · Pandas</span>
+          <span class="pill">Scikit-learn · ML Basics</span>
+          <span class="pill">HTML · CSS · JavaScript</span>
+          <span class="pill">React (Basics)</span>
+          <span class="pill">Node.js · APIs</span>
+          <span class="pill">MySQL · MongoDB</span>
+          <span class="pill">Git · GitHub · Jupyter</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS PREVIEW -->
+    <section id="projects">
+      <div class="section-card">
+        <div class="section-title">Projects</div>
+        <div class="projects-list">
+          <div class="project-item">
+            <h3>Quiz App</h3>
+            <p>
+              Responsive web-based quiz platform with JSON-driven questions,
+              instant scoring, and topic-wise quizzes for learners.
+            </p>
+          </div>
+          <div class="project-item">
+            <h3>Agrisense AI</h3>
+            <p>
+              Conceptual ML assistant for farmers to help predict crop,
+              environment and market parameters for smarter decisions.
+            </p>
+          </div>
+          <div class="project-item">
+            <h3>Akash Ganga</h3>
+            <p>
+              Bio-inspired AI/ML concept focused on river cleaning and
+              energy generation from waste and biological processes.
+            </p>
+          </div>
+          <div class="project-item">
+            <h3>Artificial Tree Concept</h3>
+            <p>
+              Fungus-based artificial tree design aimed at enhanced pollutant
+              absorption and environmental purification.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-card">
+        <div class="section-title">Contact</div>
+        <p style="font-size:1.4rem; margin-bottom:1.2rem;">
+          I’m open to <strong>internships, hackathons, project collabs, and research ideas</strong>
+          in AI, ML, web development, and impactful tech.
+        </p>
+        <p style="font-size:1.4rem; margin-bottom:0.8rem;">
+          <strong>Email:</strong>
+          <a href="mailto:Tanishqtomar07@gmail.com">Tanishqtomar07@gmail.com</a>
+        </p>
+        <p style="font-size:1.4rem; margin-bottom:0.8rem;">
+          <strong>Phone:</strong> +91-8126781541
+        </p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>“I blend AI, software engineering and design”</span> to build
+      systems that are <span>intelligent</span>, <span>aesthetic</span>, and
+      <span>impactful</span>.
+    </div>
+  </div>
+</body>
+</html>
